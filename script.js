@@ -64,7 +64,26 @@ window.onload = function() {
             nextPosition[0]++;
             this.body.unshift(nextPosition);
             this.body.pop();
-        }
-    }
+        };
+    };
+
+    document.onkeydown = function handleKeyDown(event) {
+        var key = event.keyCode;
+        var newDirection;
+        switch(key) {
+            case 37: 
+                newDirection = "left";
+                break;
+            case 38: 
+                newDirection = "up";
+                break;
+            case 39:
+                newDirection = "right";
+                break;
+            case 40: 
+                newDirection = "down";
+                break;
+        };
+    };
 
 }
