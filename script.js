@@ -60,10 +60,31 @@ window.onload = function() {
                 case "up":
                     nextPosition[1]--;
                     break;
+                default: 
+                    throw("Invalid Direction");
             }
             nextPosition[0]++;
             this.body.unshift(nextPosition);
             this.body.pop();
+        };
+
+        this.setDirection(newDirection) {
+            var allowedDirections;
+            switch(this.direction) {
+                case "left": 
+                case "right": 
+                    allowedDirections = ["up", "down"];
+                    break;
+                case "down":
+                case "up":      
+                    allowedDirections = ["left", "right"];
+                    break;
+                default: 
+                    throw("Invalid Direction");
+            }
+            if(allowedDirections.indexOf(newDirection) > -1) {
+                this.direction = newDirection;
+            }
         };
     };
 
@@ -83,6 +104,8 @@ window.onload = function() {
             case 40: 
                 newDirection = "down";
                 break;
+            default: 
+                return;
         };
     };
 
