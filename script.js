@@ -2,7 +2,7 @@ window.onload = function() {
 
     var canvasWidth = 900;
     var canvasHeight = 600;
-    var blockSize = 30
+    var blockSize = 30;
     var ctx;
     var delay = 100;
     var snakee;
@@ -33,8 +33,9 @@ window.onload = function() {
         ctx.fillRect(x, y, blockSize, blockSize);
     }
 
-    function Snake(body) {
+    function Snake(body, direction) {
         this.body = body;
+        this.direction = direction;
         this.draw = function() {
             ctx.save();
             ctx.fillStyle = "#ff0000";
@@ -46,6 +47,20 @@ window.onload = function() {
 
         this.advance = function() {
             var nextPosition = this.body[0].slice();
+            switch(this.direction) {
+                case "left": 
+                    nextPosition[0]--;
+                    break;
+                case "right": 
+                    nextPosition[0]++;
+                    break;
+                case "down":
+                    nextPosition[1]++;
+                    break;
+                case "up":
+                    nextPosition[1]--;
+                    break;
+            }
             nextPosition[0]++;
             this.body.unshift(nextPosition);
             this.body.pop();
