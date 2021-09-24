@@ -16,7 +16,7 @@ window.onload = function() {
         canvas.style.border = "1px solid";
         document.body.appendChild(canvas);
         ctx = canvas.getContext('2d');
-        snakee = new Snake([[6,4], [5,4], [4,4]]);
+        snakee = new Snake([[6,4], [5,4], [4,4]], "right");
         refreshCanvas();
     }
 
@@ -63,12 +63,12 @@ window.onload = function() {
                 default: 
                     throw("Invalid Direction");
             }
-            nextPosition[0]++;
+        
             this.body.unshift(nextPosition);
             this.body.pop();
         };
 
-        this.setDirection(newDirection) {
+        this.setDirection = function(newDirection) {
             var allowedDirections;
             switch(this.direction) {
                 case "left": 
@@ -85,7 +85,23 @@ window.onload = function() {
             if(allowedDirections.indexOf(newDirection) > -1) {
                 this.direction = newDirection;
             }
+            
         };
+    };
+
+    function Apple(position) {
+        this.position = position;
+        this.draw = function() {
+            ctx.save();
+            ctx.fillStyle = "#33cc33";
+            ctx.beginPath();
+            var radius = blockSize/2;
+            var x = position[0] * blockSize + radius;
+            var y = position[1] * blockSize + radius;
+            ctx.arc(x, y, radius, Math.PI * 2, true);
+            ctx.fill();
+            ctx.restore();
+        }
     };
 
     document.onkeydown = function handleKeyDown(event) {
@@ -107,6 +123,7 @@ window.onload = function() {
             default: 
                 return;
         };
+        snakee.setDirection(newDirection);
     };
 
 }
