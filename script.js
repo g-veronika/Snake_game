@@ -38,7 +38,7 @@ window.onload = function() {
 
             if(snakee.isEatingApple(applee)){ 
 
-                
+                score++;
                 snakee.ateApple = true;
                 do {
                     applee.setNewPosition();
@@ -48,6 +48,7 @@ window.onload = function() {
             ctx.clearRect(0, 0, canvasWidth, canvasHeight);
             snakee.draw();
             applee.draw();
+            drawScore();
             setTimeout(refreshCanvas, delay);
         }
     };
@@ -64,6 +65,12 @@ window.onload = function() {
         applee = new Apple([10, 10]);
         score = 0;
         refreshCanvas();
+    };
+
+    function drawScore(){
+        ctx.save();
+        ctx.fillText(score.toString(), 20, canvasHeight - 20,);
+        ctx.restore();
     };
 
     function drawBlock(ctx, position) {
