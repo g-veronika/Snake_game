@@ -26,11 +26,18 @@ window.onload = function() {
     }
 
     function refreshCanvas() {
-        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-        snakee.advance();     
-        snakee.draw();
-        applee.draw();
-        setTimeout(refreshCanvas, delay);
+        snakee.advance(); 
+        
+        if(snakee.checkCollision()) {
+
+            //GAME OVER
+
+        } else {
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+            snakee.draw();
+            applee.draw();
+            setTimeout(refreshCanvas, delay);
+        }
     }
 
     function drawBlock(ctx, position) {
@@ -110,6 +117,14 @@ window.onload = function() {
 
             if(notBetweenHorizWalls || notBetweenVerticWalls) {
                 wallCollision = true; 
+            };
+
+            for(var i = 0; i < rest.length; i++) {
+                if(snakeX === rest[i][0] && snakeY === rest[i][1]) {
+                    snakeCollision = true;
+                }
+
+                return wallCollision || snakeCollision;
             }
         }
     };
