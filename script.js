@@ -36,10 +36,9 @@ window.onload = function() {
 
             if(snakee.isEatingApple(applee)){ 
 
+                snakee.ateApple = true;
                 do {
-
                     applee.setNewPosition();
-                    
                 } while (applee.isOnSnake(snakee));
             }
 
@@ -59,6 +58,7 @@ window.onload = function() {
     function Snake(body, direction) {
         this.body = body;
         this.direction = direction;
+        this.ateApple = false;
         this.draw = function() {
             ctx.save();
             ctx.fillStyle = "#ff0000";
@@ -88,7 +88,11 @@ window.onload = function() {
             }
         
             this.body.unshift(nextPosition);
-            this.body.pop();
+            if(!this.ateApple) {
+                this.body.pop();
+            } else {
+                this.ateApple = false;
+            }
         };
 
         this.setDirection = function(newDirection) {
